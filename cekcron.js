@@ -87,7 +87,7 @@ function setTimeToZero(timestamp) {
 
 async function getData(updateAuthority, symbol, before) {
   try {
-    const {data} = await axios.get(`https://api.coralcube.cc/0dec5037-f67d-4da8-9eb6-97e2a09ffe9a/inspector/getMintActivities?update_authority=${updateAuthority}&collection_symbol=${symbol}${before ? "&before=" + setTimeToZero(before) : ""}`)
+    const {data} = await axios.get(`https://api.coralcube.cc/0dec5037-f67d-4da8-9eb6-97e2a09ffe9a/inspector/getMintActivities?limit=50&update_authority=${updateAuthority}&collection_symbol=${symbol}${before ? "&before=" + setTimeToZero(before) : ""}`)
     //    console.log(data)
     return data
   } catch (e) {
