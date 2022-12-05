@@ -33,7 +33,7 @@ try{
             }
         while (data.length > 0) {
             await timeout(1000)
-            const date = data2[data2.length - 1].time
+            const date = data[data.length - 1].time
          
 
             data = await getData(allItems[i].updateAuthority, allItems[i].symbol, date)
