@@ -25,34 +25,36 @@ async function cobaCron() {
 try{
  console.log(allItems[i].symbol)
         let data = await getData(allItems[i].updateAuthority, allItems[i].symbol)
-        let data2 = data
-        if(data.length>0){
-            data.forEach(async (item) => {
-                const {signature} = item
-                await royalty.put({...item, collectionName: allItems[i].symbol}, signature)
-            })
+          if(data.length>0){
+            for (let j = 0; j < data.length; j++) {
+            
+                const {signature} = data[j];
+                await royalty.put({...data[j], collectionName: allItems[i].symbol}, signature)
+            }
+        while (data.length > 0) {
+            await timeout(1000)
+            const date = data2[data2.length - 1].time
+         
+
+            data = await getData(allItems[i].updateAuthority, allItems[i].symbol, date)
+
+            if (data.length === 0) {
+                break
+
+            }
+            for (let j = 0; j < data.length; j++) {
+            
+                const {signature} = data[j];
+                await royalty.put({...data[j], collectionName: allItems[i].symbol}, signature)
+            }
+        }    
         }else{
             break;
         }
 
 
 
-        while (data2.length > 0) {
-            await timeout(1000)
-            const date = data2[data2.length - 1].time
-         
-
-            data2 = await getData(allItems[i].updateAuthority, allItems[i].symbol, date)
-
-            if (data2.length === 0) {
-                break
-
-            }
-            data2.forEach(async (item) => {
-                const {signature} = item
-                await royalty.put({...item, collectionName: allItems[i].symbol}, signature)
-            })
-        }   
+           
 }catch(e){
     console.log(e.message)
 }
