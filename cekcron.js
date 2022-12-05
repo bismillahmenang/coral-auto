@@ -23,7 +23,7 @@ async function cobaCron() {
     if (allItems.length === 0) return
     for (let i = 0; i < allItems.length; i++) {
 try{
- 
+ console.log(allItems[i].symbol)
         let data = await getData(allItems[i].updateAuthority, allItems[i].symbol)
         let data2 = data
         if(data.length>0){
@@ -40,7 +40,7 @@ try{
         while (data2.length > 0) {
             await timeout(1000)
             const date = data2[data2.length - 1].time
-            console.log(setTimeToZero(date))
+         
 
             data2 = await getData(allItems[i].updateAuthority, allItems[i].symbol, date)
 
