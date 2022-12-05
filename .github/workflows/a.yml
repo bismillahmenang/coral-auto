@@ -1,33 +1,31 @@
 name: test
 
 on:
-    push:
-        branches:
-            - main
-    schedule:
-        - cron : '0 * * * *'
+  push:
+    branches: [main]
+  schedule:
+   - cron : '0 * * * *'
 
 jobs:
-    test:
-        runs-on: ${{ matrix.os }}
-        strategy:
-            matrix:
-                os: [ubuntu-latest, windows-latest, macos-latest]
-                deno:
-                    [1.x, "1.8.2", canary, ~1.7, e7b7129b7a92b7500ded88f8f5baa25a7f59e56e]
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        deno:
+          [1.x, "1.8.2", canary, ~1.7, e7b7129b7a92b7500ded88f8f5baa25a7f59e56e]
 
-steps:
-    - uses: actions/checkout@v2
+    steps:
+      - uses: actions/checkout@v2
 
-    - name: Setup Deno
-      uses: ./
-      with:
-        deno-version: ${{ matrix.deno }}
+      - name: Setup Deno
+        uses: ./
+        with:
+          deno-version: ${{ matrix.deno }}
 
-    - name: Running man
-      run: deno run --allow-read --allow-env --allow-net cekcron.js
-      env:
+      - name: Test Deno
+        run:  deno run --allow-read --allow-env --allow-net cekcron.js
+        env:
          panda: ${{ secrets.panda }}
 
-
-
+  
