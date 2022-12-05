@@ -39,7 +39,7 @@ try{
             data = await getData(allItems[i].updateAuthority, allItems[i].symbol, date)
 
             if (data.length === 0) {
-                break
+              continue
 
             }
             for (let j = 0; j < data.length; j++) {
@@ -49,7 +49,7 @@ try{
             }
         }    
         }else{
-            break;
+            continue
         }
 
 
