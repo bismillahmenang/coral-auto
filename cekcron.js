@@ -22,7 +22,8 @@ async function cobaCron() {
     allItems = allItems.filter(({updateAuthority, symbol}) => updateAuthority && symbol)
     if (allItems.length === 0) return
     for (let i = 0; i < allItems.length; i++) {
-
+try{
+ 
         let data = await getData(allItems[i].updateAuthority, allItems[i].symbol)
         let data2 = data
         if(data.length>0){
@@ -51,7 +52,10 @@ async function cobaCron() {
                 const {signature} = item
                 await royalty.put({...item, collectionName: allItems[i].symbol}, signature)
             })
-        }
+        }   
+}catch(e){
+    console.log(e.message)
+}
 
 
     }
