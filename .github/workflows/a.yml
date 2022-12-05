@@ -17,8 +17,7 @@ jobs:
         uses: denoland/setup-deno@v1
  
       - name: Test Deno
-        run:  deno run --allow-read --allow-env --allow-net cekcron.js
-        env:
-         panda: ${{ secrets.panda }}
+        run:  panda=${{ secrets.panda }} deno run --allow-read --allow-env --allow-net cekcron.js
+
 
   
