@@ -1,7 +1,7 @@
 import {Deta} from 'npm:deta@latest'
 import axios from "npm:axios@latest"
 import { config } from "https://deno.land/x/dotenv/mod.ts";
-const deta = Deta(config().panda)
+const deta = Deta(Deno.env.get("panda"))
 
 
 // This how to connect to or create a database.
